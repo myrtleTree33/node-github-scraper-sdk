@@ -43,7 +43,7 @@ async function scrapeStarPage(repository, page) {
   });
 }
 
-export default async function scrapeFollowers({
+export default async function scrapeRepoFollowers({
   repo,
   numStep = 2,
   maxPages = 100,

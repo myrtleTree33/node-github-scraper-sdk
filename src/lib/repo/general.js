@@ -12,7 +12,7 @@ async function scrapeLanguages({ repo }) {
   return languages;
 }
 
-export default async function scrapeGeneralInfo({ repo }) {
+export default async function scrapeRepoGeneral({ repo }) {
   const _auth = await auth();
   const pageUrl = `https://api.github.com/repos/${repo}?${genCredentials(
     _auth
