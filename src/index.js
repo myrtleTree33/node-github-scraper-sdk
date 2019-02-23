@@ -5,6 +5,10 @@ import scrapeFollowers from './lib/profile/followers';
 import scrapeUserStarredRepos from './lib/profile/starredRepos';
 import scrapeCommitHistory from './lib/profile/commitHistory';
 
+// load environment variables
+const dotenv = require('dotenv');
+dotenv.load();
+
 export default function app() {
   // const repo = 'nushackers/notes-to-cs-freshmen-from-the-future';
   // const repoInfo = await scrapeRepo({
