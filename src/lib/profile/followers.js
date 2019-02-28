@@ -1,17 +1,15 @@
 import axios from 'axios';
 import sleep from 'await-sleep';
 
-import { auth, genCredentials } from '../auth/keyRetrieval';
+import { genToken, genTokenHeader } from '../auth/keyRetrieval';
 
 async function scrapePage(username, page) {
-  const _auth = await auth();
+  const token = await genToken();
 
   const pageUrl =
-    'https://api.github.com/users/' +
-    `${username}/followers?page=${page}` +
-    `?${genCredentials(_auth)}`;
+    'https://api.github.com/users/' + `${username}/followers?page=${page}`;
 
-  const response = await axios.get(pageUrl);
+  const response = await axios.get(pageUrl, genTokenHeader(token));
   const entries = response.data;
   const followers = entries.map(x => {
     return {

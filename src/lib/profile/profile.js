@@ -2,10 +2,10 @@ import axios from 'axios';
 import scrapeEmail from './email';
 import scrapeUserStarredRepos from './starredRepos';
 import scrapeFollowers from './followers';
-import scrapeUserRepos from './repos';
+import scrapeUserRepos from './userRepos';
 import scrapeCommitHistory from './commitHistory';
 
-import { auth, genCredentials } from '../auth/keyRetrieval';
+import { genToken, genTokenHeader } from '../auth/keyRetrieval';
 
 /**
  * This method scrapes a user's profile
@@ -13,11 +13,9 @@ import { auth, genCredentials } from '../auth/keyRetrieval';
  * @param {*} param0
  */
 export default async function scrapeUser({ username }) {
-  const _auth = await auth();
-  const pageUrl = `https://api.github.com/users/${username}?${genCredentials(
-    _auth
-  )}`;
-  const response = await axios.get(pageUrl);
+  const token = await genToken();
+  const pageUrl = `https://api.github.com/users/${username}`;
+  const response = await axios.get(pageUrl, genTokenHeader(token));
 
   const {
     name,

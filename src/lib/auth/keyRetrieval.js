@@ -1,20 +1,23 @@
 import Axios from 'axios';
 
-export async function auth() {
+export async function genToken() {
   try {
+    console.log('-------------');
     const url = 'http://localhost:8080/token/available/github';
     const response = await Axios.get(url);
-    const { id, secret } = response.data.token;
-    const token = { id, secret };
-    return Promise.resolve(token);
+    const { authToken } = response.data.token;
+    return Promise.resolve(authToken);
   } catch (err) {
     // fail silently
     console.error('Unable to retrieve auth credentials!');
-    return Promise.resolve({ id: null, secret: null });
+    return Promise.resolve(null);
   }
 }
 
-export function genCredentials(auth) {
-  const { id, secret } = auth;
-  return `&client_id=${id}&client_secret=${secret}`;
+export function genTokenHeader(token) {
+  return {
+    headers: {
+      Authorization: `token ${token}`
+    }
+  };
 }

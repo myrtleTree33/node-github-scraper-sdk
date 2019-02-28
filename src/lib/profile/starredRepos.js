@@ -1,7 +1,7 @@
 import axios from 'axios';
 import sleep from 'await-sleep';
 
-import { auth, genCredentials } from '../auth/keyRetrieval';
+import { genToken, genTokenHeader } from '../auth/keyRetrieval';
 
 /**
  * This method scrapes a user's starred repos.
@@ -25,12 +25,10 @@ export default async function scrapeUserStarredRepos({ username, maxPages }) {
 
 async function retrieveStarredRepos(username, page = 1) {
   const output = [];
-  const _auth = await auth();
-  const pageUrl =
-    `https://api.github.com/users/${username}` +
-    `/starred?page=${page}${genCredentials(_auth)}`;
+  const token = await genToken();
+  const pageUrl = `https://api.github.com/users/${username}/starred?page=${page}`;
 
-  const response = await axios.get(pageUrl);
+  const response = await axios.get(pageUrl, genTokenHeader(token));
   const repos = response.data;
 
   for (let i = 0; i < repos.length; i++) {

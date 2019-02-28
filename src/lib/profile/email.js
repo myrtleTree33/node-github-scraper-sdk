@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { auth, genCredentials } from '../auth/keyRetrieval';
+import { genToken, genTokenHeader } from '../auth/keyRetrieval';
 
 /**
  * This method scrapes a user's email
@@ -9,13 +9,11 @@ import { auth, genCredentials } from '../auth/keyRetrieval';
  */
 export default async function scrapeEmail({ username }) {
   const emails = [];
-  const _auth = await auth();
+  const token = await genToken();
 
-  const pageUrl =
-    'https://api.github.com/users/' +
-    `${username}/events/public?${genCredentials(_auth)}`;
+  const pageUrl = 'https://api.github.com/users/' + `${username}/events/public`;
 
-  const response = await axios.get(pageUrl);
+  const response = await axios.get(pageUrl, genTokenHeader(token));
   const events = response.data;
   for (let i = 0; i < events.length; i++) {
     const event = events[i];

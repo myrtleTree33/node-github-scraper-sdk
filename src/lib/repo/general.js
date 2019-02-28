@@ -1,23 +1,19 @@
 import axios from 'axios';
 
-import { auth, genCredentials } from '../auth/keyRetrieval';
+import { genToken, genTokenHeader } from '../auth/keyRetrieval';
 
 async function scrapeLanguages({ repo }) {
-  const _auth = await auth();
-  const pageUrl = `https://api.github.com/repos/${repo}/languages?${genCredentials(
-    _auth
-  )}`;
-  const response = await axios.get(pageUrl);
+  const token = await genToken();
+  const pageUrl = `https://api.github.com/repos/${repo}/languages`;
+  const response = await axios.get(pageUrl, genTokenHeader(token));
   const languages = response.data || {};
   return languages;
 }
 
 export default async function scrapeRepoGeneral({ repo }) {
-  const _auth = await auth();
-  const pageUrl = `https://api.github.com/repos/${repo}?${genCredentials(
-    _auth
-  )}`;
-  const response = await axios.get(pageUrl);
+  const token = await genToken();
+  const pageUrl = `https://api.github.com/repos/${repo}`;
+  const response = await axios.get(pageUrl, genTokenHeader(token));
 
   const {
     id,

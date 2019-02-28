@@ -1,7 +1,7 @@
 import axios from 'axios';
 import sleep from 'await-sleep';
 
-import { auth, genCredentials } from '../auth/keyRetrieval';
+import { genToken, genTokenHeader } from '../auth/keyRetrieval';
 
 /**
  * This method scrapes a user's repositories.
@@ -26,13 +26,12 @@ export default async function scrapeUserRepos({ username, maxPages }) {
 
 async function retrieveRepos(username, page = 1) {
   const output = [];
-  const _auth = await auth();
+  const token = await genToken();
 
   const pageUrl =
-    'https://api.github.com/users/' +
-    `${username}/repos?page=${page}${genCredentials(_auth)}`;
+    'https://api.github.com/users/' + `${username}/repos?page=${page}`;
 
-  const response = await axios.get(pageUrl);
+  const response = await axios.get(pageUrl, genTokenHeader(token));
   const repos = response.data;
 
   for (let i = 0; i < repos.length; i++) {
