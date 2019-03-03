@@ -15,11 +15,7 @@ export default async function scrapeCommitHistory({ username }) {
   for (let x = 1; x <= 53; x++) {
     for (let y = 1; y <= 7; y++) {
       const val = $(
-        '#js-pjax-container > div > div.col-9.float-left.pl-2 > ' +
-          'div.position-relative > div.mt-4.position-relative > ' +
-          'div.js-yearly-contributions > div > div > ' +
-          'div.js-calendar-graph.is-graph-loading.graph-canvas.' +
-          'calendar-graph.height-full > svg > g >' +
+        '#js-pjax-container > div > div.col-9.float-left.pl-2 > div.position-relative > div.mt-4.position-relative > div.js-yearly-contributions > div > div > div.js-calendar-graph.is-graph-loading.graph-canvas.calendar-graph.height-full > svg > g >' +
           ` g:nth-child(${x}) > rect:nth-child(${y})`
       );
       const date = val.attr('data-date');

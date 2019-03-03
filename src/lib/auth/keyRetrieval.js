@@ -2,7 +2,6 @@ import Axios from 'axios';
 
 export async function genToken() {
   try {
-    console.log('-------------');
     const url = 'http://localhost:8080/token/available/github';
     const response = await Axios.get(url);
     const { authToken } = response.data.token;
