@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 export async function genToken() {
   try {
-    const url = 'http://localhost:8080/token/available/github';
+    const url = process.env.BACKEND_TOKEN_URL;
     const response = await Axios.get(url);
     const { authToken } = response.data.token;
     return Promise.resolve(authToken);
