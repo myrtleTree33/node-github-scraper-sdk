@@ -12,7 +12,7 @@ import { genToken, genTokenHeader } from '../auth/keyRetrieval';
  *
  * @param {*} param0
  */
-export default async function scrapeUser({ username }) {
+export default async function scrapeUser({ username, maxPages = 1 }) {
   const token = await genToken();
   const pageUrl = `https://api.github.com/users/${username}`;
   const response = await axios.get(pageUrl, genTokenHeader(token));
@@ -58,13 +58,13 @@ export default async function scrapeUser({ username }) {
   const emails = await scrapeEmail({ username });
   output.emails = emails;
 
-  const starredRepos = await scrapeUserStarredRepos({ username, maxPages: 1 });
+  const starredRepos = await scrapeUserStarredRepos({ username, maxPages });
   output.starredRepos = starredRepos;
 
-  const ownedRepos = await scrapeUserRepos({ username, maxPages: 1 });
+  const ownedRepos = await scrapeUserRepos({ username, maxPages });
   output.ownedRepos = ownedRepos;
 
-  const followers2 = await scrapeFollowers({ username, maxPages: 1 });
+  const followers2 = await scrapeFollowers({ username, maxPages });
   output.followers = followers2;
 
   const commitHistory = await scrapeCommitHistory({ username });
