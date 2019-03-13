@@ -19,6 +19,7 @@ export default async function scrapeRepoGeneral({ repo }) {
     id,
     html_url,
     name,
+    full_name,
     description,
     language,
     stargazers_count,
@@ -28,6 +29,7 @@ export default async function scrapeRepoGeneral({ repo }) {
     created_at,
     updated_at,
     pushed_at,
+    fork,
     owner
   } = response.data;
   const languages = await scrapeLanguages({ repo });
@@ -35,10 +37,12 @@ export default async function scrapeRepoGeneral({ repo }) {
   return {
     id,
     name,
+    fullName: full_name,
     url: html_url,
     description,
     language,
     languages,
+    isForked: fork,
     numSubscribers: subscribers_count,
     numWatchers: watchers_count,
     numStargazers: stargazers_count,

@@ -14,12 +14,15 @@ const dotenv = require('dotenv');
 dotenv.load();
 
 // export default function app() {
-// const repo = 'nushackers/notes-to-cs-freshmen-from-the-future';
-// const repoInfo = await scrapeRepo({
-//   repo,
-//   maxPages: 2,
-//   skipFollowers: false
-// });
+// (async () => {
+//   const repo = 'nushackers/notes-to-cs-freshmen-from-the-future';
+//   const repoInfo = await scrapeRepo({
+//     repo,
+//     maxPages: 2,
+//     skipFollowers: false
+//   });
+//   console.log(repoInfo);
+// })();
 // console.log(JSON.stringify(repoInfo));
 // const username = 'myrtletree33';
 // const user = await scrapeUser({ username });
