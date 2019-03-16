@@ -8,10 +8,15 @@ import scrapeCommitHistory from './lib/profile/commitHistory';
 import scrapeRepo from './lib/repo/repoDetails';
 import scrapeRepoFollowers from './lib/repo/followers';
 import scrapeRepoGeneral from './lib/repo/general';
+import scrapeReposByKeyword from './lib/query/repoQuery';
 
 // load environment variables
 const dotenv = require('dotenv');
 dotenv.load();
+
+// (async () => {
+//   console.log(await scrapeReposByKeyword('cs1010'));
+// })();
 
 // export default function app() {
 // (async () => {
@@ -43,4 +48,6 @@ export const repoTools = {
   scrapeRepoFollowers
 };
 
-// }
+export const queryTools = {
+  scrapeReposByKeyword
+};
