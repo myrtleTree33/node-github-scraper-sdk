@@ -9,6 +9,7 @@ import scrapeRepo from './lib/repo/repoDetails';
 import scrapeRepoFollowers from './lib/repo/followers';
 import scrapeRepoGeneral from './lib/repo/general';
 import scrapeReposByKeyword from './lib/query/repoQuery';
+import scrapeUsersByKeyword from './lib/query/userQuery';
 
 // load environment variables
 const dotenv = require('dotenv');
@@ -16,6 +17,7 @@ dotenv.load();
 
 // (async () => {
 //   console.log(await scrapeReposByKeyword('cs1010'));
+// console.log(await scrapeUsersByKeyword('Seoul'));
 // })();
 
 // export default function app() {
@@ -49,5 +51,6 @@ export const repoTools = {
 };
 
 export const queryTools = {
-  scrapeReposByKeyword
+  scrapeReposByKeyword,
+  scrapeUsersByKeyword
 };
