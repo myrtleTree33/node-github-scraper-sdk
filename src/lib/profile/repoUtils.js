@@ -30,8 +30,14 @@ export default function findFirstCreatedReposByLang(
       ) {
         firstLearntByLang[language] = createdAtDate;
       }
-    } else if (createdAtDate.isBefore(firstLearntByLang[language])) {
-      firstLearntByLang[language] = createdAtDate;
+    } else {
+      // if first lang unset, or curr date is older
+      if (
+        !firstLearntByLang[language] ||
+        createdAtDate.isBefore(firstLearntByLang[language])
+      ) {
+        firstLearntByLang[language] = createdAtDate;
+      }
     }
   }
 
