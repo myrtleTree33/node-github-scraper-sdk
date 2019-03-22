@@ -10,6 +10,7 @@ import scrapeRepoFollowers from './lib/repo/followers';
 import scrapeRepoGeneral from './lib/repo/general';
 import scrapeReposByKeyword from './lib/query/repoQuery';
 import scrapeUsersByKeyword from './lib/query/userQuery';
+import findFirstCreatedReposByLang from './lib/profile/repoUtils';
 
 // load environment variables
 const dotenv = require('dotenv');
@@ -32,8 +33,12 @@ dotenv.load();
 // })();
 // console.log(JSON.stringify(repoInfo));
 // const username = 'myrtletree33';
-// const user = await scrapeUser({ username });
-// console.log(JSON.stringify(user));
+
+// (async () => {
+//   const username = 'myrtletree33';
+//   const user = await scrapeUser({ username, maxPages: 1 });
+//   console.log(JSON.stringify(user));
+// })();
 
 export const profileTools = {
   scrapeUser, // main function doing the below

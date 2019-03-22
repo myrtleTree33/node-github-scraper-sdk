@@ -2,6 +2,7 @@ import axios from 'axios';
 import sleep from 'await-sleep';
 
 import { genToken, genTokenHeader } from '../auth/keyRetrieval';
+import findFirstCreatedReposByLang from './repoUtils';
 
 /**
  * This method scrapes a user's repositories.
@@ -20,7 +21,8 @@ export default async function scrapeUserRepos({ username, maxPages }) {
   const languages = getLanguageBreakdown(repos);
   return {
     repos,
-    languages
+    languages,
+    firstCreatedByLang: findFirstCreatedReposByLang({ repos, languages }, true)
   };
 }
 

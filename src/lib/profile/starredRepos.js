@@ -2,6 +2,7 @@ import axios from 'axios';
 import sleep from 'await-sleep';
 
 import { genToken, genTokenHeader } from '../auth/keyRetrieval';
+import findFirstCreatedReposByLang from './repoUtils';
 
 /**
  * This method scrapes a user's starred repos.
@@ -14,12 +15,15 @@ export default async function scrapeUserStarredRepos({ username, maxPages }) {
     promises.push(retrieveStarredRepos(username, i));
     await sleep(20);
   }
+
   const results = await Promise.all(promises);
   const repos = [].concat(...results);
   const languages = getLanguageBreakdown(repos);
+
   return {
     repos,
-    languages
+    languages,
+    firstCreatedByLang: findFirstCreatedReposByLang({ repos, languages }, false)
   };
 }
 
